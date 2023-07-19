@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>Poon Features</title>
+  <style type="text/css">
+    @keyframes wobble {
+      0%, 100% { transform: skew(0, 0); }
+      10%, 30%, 50%, 70%, 90% { transform: skew(-.2deg, -.2deg); }
+      20%, 40%, 60%, 80% { transform: skew(.2deg, .2deg); }
+    }
+
+    @keyframes flutter {
+      0%, 50%, 100% { transform: translate(0, 0); }
+      18% { transform: translate(-25px, -25px); }
+      36% { transform: translate(-25px, 25px); }
+      68% { transform: translate(25px, 25px); }
+      86% { transform: translate(25px, -25px); }
+    }
+
+    .pooh-balloon {
+      animation: wobble 2s infinite;
+      height: auto;
+      left: 50%;
+      position: fixed;
+      top: 100%;
+      width: 20%;
+      z-index: 1;
+    }
+
+    .pooh-bee {
+      /*animation: flutter 7s infinite;*/
+      height: auto;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      width: 60px;
+      z-index: 999;
+    }
+
+    /* .pooh-prints {
+      height: auto;
+      position: absolute;
+      width: 15%;
+    } */
+  </style>	
+</head>
+
+<body>
+
+<script type="text/javascript">
+(() => {
+  function initBalloon (el) {
+    const h2w = window.screen.height / window.screen.width;
+    el.launch = () => {
+      el.h2w = el.naturalHeight / el.naturalWidth;
+      el.scaler = 0.05 + (0.2 * Math.random());
+      el.style.width = (el.scaler * 100) + '%';
+      el.style.zIndex = parseInt(el.scaler * 100, 10);
+      el.move([90 * Math.random(), 100]);
+      el.onclick = el.launch;
+      clearTimeout(el.t);
+      el.t = setTimeout(() => { el.drop(); }, parseInt(2000 + (Math.random() * 6000), 10));
+    };
+    el.move = (xy) => {
+      const x = xy[0];
+      const y = xy[1];
+      let r;
+      if (y < - el.h2w * el.scaler * 100 / h2w) {
+        r = true;
+      }
+      el.xy = [x, y];
+      window.requestAnimationFrame(() => {
+        el.style.left = x + '%';
+        el.style.top = y + '%';
+      });
+      return r;
+    };
+    el.drop = () => {
+      const r = el.move([el.xy[0], el.xy[1] - (el.scaler * 1.5)]);
+      if (r) {
+        el.launch();
+      }
+      el.t = setTimeout(() => { el.drop(); }, 23);
+    };
+  }
+
+  window.addEventListener('load', () => {
+    for (let i = 1; i < 2; i++) {
+      const balloon = document.createElement('img');
+      balloon.classList.add('pooh-balloon');
+      /*eslint-disable */
+      balloon.src = 'images/red-balloon.png';
+      /*eslint-enable */
+      document.body.appendChild(balloon);
+      initBalloon(balloon);
+      balloon.launch();
+    }
+
+    if (window.screen.width > 1024) {
+      const bees = [];
+      const n = 40;
+      const segs = 6;
+      for (let i = 1; i < n + 1; i++) {
+        setTimeout(() => { 
+          const bee = document.createElement('img');
+          bee.classList.add('pooh-bee');
+          /*eslint-disable */
+          bee.src = 'images/bee.png';
+          /*eslint-enable */
+          document.body.appendChild(bee);
+          bee.offset = [(i * 80 / n) * Math.sin(2 * Math.PI * i / segs) , (i * 80 / n) * Math.cos(2 * Math.PI * i / segs)];
+          bees.push(bee);
+        }, i * 0);
+      }
+      window.addEventListener('mousemove', (e) => {
+        for (let i = 0; i < bees.length; i++) {
+          const xy = [e.pageX, e.pageY];
+          setTimeout(() => {
+            window.requestAnimationFrame(() => {
+              bees[i].setAttribute('style', 'left:' + (xy[0] + bees[i].offset[0]) + 'px; top:' + (xy[1] + bees[i].offset[1]) + 'px');
+            });
+          }, i * 10);
+        }
+      });
+    }
+
+    let printCount = 0;
+    window.addEventListener('scroll', () => {
+      const spacing = 800;
+      window.requestAnimationFrame(() => {
+        if (window.pageYOffset > printCount * spacing) {
+          printCount = printCount + 1;
+          const footprints = document.createElement('img');
+          const leftright = printCount % 2 ? 'left' : 'right';
+          const flip = printCount % 2 ? -1 : 1;
+          document.body.appendChild(footprints);
+          footprints.classList.add('pooh-prints');
+          /*eslint-disable */
+          footprints.src = 'images/dot.png';
+          footprints.setAttribute('style', leftright + ': 0; transform: scaleX(' + flip + '); top:' + ((printCount - 0.5) * spacing) + 'px');
+          /*eslint-enable */
+        }
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
