@@ -86,14 +86,19 @@
       console.log('randomSegementValue1', randomSegementValue1);
       console.log('randomSegementValue2', randomSegementValue2);
       for (let i = 1; i < numberOfBees+ 1; i++) { // iterate through the number of bees
-        setTimeout(() => { 
+        setTimeout(() => { // There does not appear to be any reson for this setTimeout
           const bee = document.createElement('img');
           bee.classList.add('bee');
           /*eslint-disable */
           bee.src = 'images/bee.png';
           /*eslint-enable */
           document.body.appendChild(bee);
-          bee.offset = [(i * 80 / numberOfBees) * Math.sin(2 * Math.PI * i / randomSegementValue1) , (i * 80 / numberOfBees) * Math.cos(2 * Math.PI * i / randomSegementValue2)]; // set the offset of the bee to
+          if (i === 1) {
+            bee.offset = [0, 0];
+            bee.src = 'images/dot.png'
+            console.log("I am bee number 1!")
+          } else {
+          bee.offset = [(i * 80 / numberOfBees) * Math.sin(2 * Math.PI * i / randomSegementValue1) , (i * 80 / numberOfBees) * Math.cos(2 * Math.PI * i / randomSegementValue2)]; } // set the offset of the bee to
           bees.push(bee);
         }, i * 0);
       }
@@ -106,11 +111,11 @@ window.addEventListener('mousemove', (e) => {
     Math.pow(e.pageY - firstBee.offsetTop, 2)
   );
 
-  if (mouseDistance <= 10 && !isWithinRange) {
+  if (mouseDistance <= 15 && !isWithinRange) {
     // Mouse is within the range, and it was not within the range in the previous move
     isWithinRange = true;
     bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
-  } else if (mouseDistance > 10 && isWithinRange) {
+  } else if (mouseDistance > 15 && isWithinRange) {
     // Mouse is outside the range, and it was within the range in the previous move
     isWithinRange = false;
     bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
@@ -129,139 +134,139 @@ window.addEventListener('mousemove', (e) => {
     }
   });
 
-  window.addEventListener('load', () => {
-    if (window.screen.width > 1024) {
-      const bees = [];
-      const numberOfBees= 30;
-      const segments = 5;
-      const randomSegementValue1 = (Math.floor(Math.random() * 20) / 10) + (segments - 1);
-      const randomSegementValue2 = (Math.floor(Math.random() * 20) / 10) + (segments - 1);
-      console.log('randomSegementValue1', randomSegementValue1);
-      console.log('randomSegementValue2', randomSegementValue2);
-      for (let i = 1; i < numberOfBees+ 1; i++) { // iterate through the number of bees
-        setTimeout(() => { 
-          const bee = document.createElement('img');
-          bee.classList.add('bee');
-          /*eslint-disable */
-          bee.src = 'images/bee.png';
-          /*eslint-enable */
-          document.body.appendChild(bee);
-          bee.offset = [(i * 80 / numberOfBees) * Math.sin(2 * Math.PI * i / randomSegementValue1) , (i * 80 / numberOfBees) * Math.cos(2 * Math.PI * i / randomSegementValue2)]; // set the offset of the bee to
-          bees.push(bee);
-        }, i * 0);
-      }
-      let isWithinRange = false; // Flag to track if the mouse is within the range
+//   window.addEventListener('load', () => { // BEE SET TWO
+//     if (window.screen.width > 1024) {
+//       const bees = [];
+//       const numberOfBees= 30;
+//       const segments = 5;
+//       const randomSegementValue1 = (Math.floor(Math.random() * 20) / 10) + (segments - 1);
+//       const randomSegementValue2 = (Math.floor(Math.random() * 20) / 10) + (segments - 1);
+//       console.log('randomSegementValue1', randomSegementValue1);
+//       console.log('randomSegementValue2', randomSegementValue2);
+//       for (let i = 1; i < numberOfBees+ 1; i++) { // iterate through the number of bees
+//         setTimeout(() => { 
+//           const bee = document.createElement('img');
+//           bee.classList.add('bee');
+//           /*eslint-disable */
+//           bee.src = 'images/bee.png';
+//           /*eslint-enable */
+//           document.body.appendChild(bee);
+//           bee.offset = [(i * 80 / numberOfBees) * Math.sin(2 * Math.PI * i / randomSegementValue1) , (i * 80 / numberOfBees) * Math.cos(2 * Math.PI * i / randomSegementValue2)]; // set the offset of the bee to
+//           bees.push(bee);
+//         }, i * 0);
+//       }
+//       let isWithinRange = false; // Flag to track if the mouse is within the range
 
-window.addEventListener('mousemove', (e) => {
-  const firstBee = bees[0]; // Get the reference to the first bee in the bees array
-  const mouseDistance = Math.sqrt(
-    Math.pow(e.pageX - firstBee.offsetLeft, 2) +
-    Math.pow(e.pageY - firstBee.offsetTop, 2)
-  );
+// window.addEventListener('mousemove', (e) => {
+//   const firstBee = bees[0]; // Get the reference to the first bee in the bees array
+//   const mouseDistance = Math.sqrt(
+//     Math.pow(e.pageX - firstBee.offsetLeft, 2) +
+//     Math.pow(e.pageY - firstBee.offsetTop, 2)
+//   );
 
-  if (mouseDistance <= 30 && !isWithinRange) {
-    // Mouse is within the range, and it was not within the range in the previous move
-    isWithinRange = true;
-    bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
-  } else if (mouseDistance > 30 && isWithinRange) {
-    // Mouse is outside the range, and it was within the range in the previous move
-    isWithinRange = false;
-    bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
-  }
+//   if (mouseDistance <= 30 && !isWithinRange) {
+//     // Mouse is within the range, and it was not within the range in the previous move
+//     isWithinRange = true;
+//     bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
+//   } else if (mouseDistance > 30 && isWithinRange) {
+//     // Mouse is outside the range, and it was within the range in the previous move
+//     isWithinRange = false;
+//     bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
+//   }
 
-  for (let i = 0; i < bees.length; i++) {
-    const xy = [e.pageX, e.pageY];
-    setTimeout(() => {
-      window.requestAnimationFrame(() => {
-        bees[i].style.left = (xy[0] + bees[i].offset[0]) + 'px';
-        bees[i].style.top = (xy[1] + bees[i].offset[1]) + 'px';
-      });
-    }, i * 10);
-  }
-});
-    }
-  });
+//   for (let i = 0; i < bees.length; i++) {
+//     const xy = [e.pageX, e.pageY];
+//     setTimeout(() => {
+//       window.requestAnimationFrame(() => {
+//         bees[i].style.left = (xy[0] + bees[i].offset[0]) + 'px';
+//         bees[i].style.top = (xy[1] + bees[i].offset[1]) + 'px';
+//       });
+//     }, i * 10);
+//   }
+// });
+//     }
+//   });
 
-window.addEventListener('mousemove', (e) => {
-  const firstBee = bees[0]; // Get the reference to the first bee in the bees array
-  const mouseDistance = Math.sqrt(
-    Math.pow(e.pageX - firstBee.offsetLeft, 2) +
-    Math.pow(e.pageY - firstBee.offsetTop, 2)
-  );
+// window.addEventListener('mousemove', (e) => {
+//   const firstBee = bees[0]; // Get the reference to the first bee in the bees array
+//   const mouseDistance = Math.sqrt(
+//     Math.pow(e.pageX - firstBee.offsetLeft, 2) +
+//     Math.pow(e.pageY - firstBee.offsetTop, 2)
+//   );
 
-  if (mouseDistance <= 30 && !isWithinRange) {
-    // Mouse is within the range, and it was not within the range in the previous move
-    isWithinRange = true;
-    bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
-  } else if (mouseDistance > 30 && isWithinRange) {
-    // Mouse is outside the range, and it was within the range in the previous move
-    isWithinRange = false;
-    bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
-  }
+//   if (mouseDistance <= 30 && !isWithinRange) {
+//     // Mouse is within the range, and it was not within the range in the previous move
+//     isWithinRange = true;
+//     bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
+//   } else if (mouseDistance > 30 && isWithinRange) {
+//     // Mouse is outside the range, and it was within the range in the previous move
+//     isWithinRange = false;
+//     bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
+//   }
 
-  for (let i = 0; i < bees.length; i++) {
-    const xy = [e.pageX, e.pageY];
-    setTimeout(() => {
-      window.requestAnimationFrame(() => {
-        bees[i].style.left = (xy[0] + bees[i].offset[0]) + 'px';
-        bees[i].style.top = (xy[1] + bees[i].offset[1]) + 'px';
-      });
-    }, i * 10);
-  }
-});
+//   for (let i = 0; i < bees.length; i++) {
+//     const xy = [e.pageX, e.pageY];
+//     setTimeout(() => {
+//       window.requestAnimationFrame(() => {
+//         bees[i].style.left = (xy[0] + bees[i].offset[0]) + 'px';
+//         bees[i].style.top = (xy[1] + bees[i].offset[1]) + 'px';
+//       });
+//     }, i * 10);
+//   }
+// });
 
-  window.addEventListener('load', () => {
-    if (window.screen.width > 1024) {
-      const bees = [];
-      const numberOfBees= 40;
-      const segments = 4;
-      const randomSegementValue1 = (Math.floor(Math.random() * 20) / 10) + (segments - 1);
-      const randomSegementValue2 = (Math.floor(Math.random() * 20) / 10) + (segments - 1);
-      console.log('randomSegementValue1', randomSegementValue1);
-      console.log('randomSegementValue2', randomSegementValue2);
-      for (let i = 1; i < numberOfBees+ 1; i++) { // iterate through the number of bees
-        setTimeout(() => { 
-          const bee = document.createElement('img');
-          bee.classList.add('bee3');
-          /*eslint-disable */
-          bee.src = 'images/bee.png';
-          /*eslint-enable */
-          document.body.appendChild(bee);
-          bee.offset = [(i * 80 / numberOfBees) * Math.sin(2 * Math.PI * i / randomSegementValue1) , (i * 80 / numberOfBees) * Math.cos(2 * Math.PI * i / randomSegementValue2)]; // set the offset of the bee to
-          bees.push(bee);
-        }, i * 0);
-      }
-      let isWithinRange = false; // Flag to track if the mouse is within the range
+//   window.addEventListener('load', () => { // BEE SET THREE
+//     if (window.screen.width > 1024) {
+//       const bees = [];
+//       const numberOfBees= 40;
+//       const segments = 4;
+//       const randomSegementValue1 = (Math.floor(Math.random() * 20) / 10) + (segments - 1);
+//       const randomSegementValue2 = (Math.floor(Math.random() * 20) / 10) + (segments - 1);
+//       console.log('randomSegementValue1', randomSegementValue1);
+//       console.log('randomSegementValue2', randomSegementValue2);
+//       for (let i = 1; i < numberOfBees+ 1; i++) { // iterate through the number of bees
+//         setTimeout(() => { 
+//           const bee = document.createElement('img');
+//           bee.classList.add('bee3');
+//           /*eslint-disable */
+//           bee.src = 'images/bee.png';
+//           /*eslint-enable */
+//           document.body.appendChild(bee);
+//           bee.offset = [(i * 80 / numberOfBees) * Math.sin(2 * Math.PI * i / randomSegementValue1) , (i * 80 / numberOfBees) * Math.cos(2 * Math.PI * i / randomSegementValue2)]; // set the offset of the bee to
+//           bees.push(bee);
+//         }, i * 0);
+//       }
+//       let isWithinRange = false; // Flag to track if the mouse is within the range
 
-window.addEventListener('mousemove', (e) => {
-  const firstBee = bees[0]; // Get the reference to the first bee in the bees array
-  const mouseDistance = Math.sqrt(
-    Math.pow(e.pageX - firstBee.offsetLeft, 2) +
-    Math.pow(e.pageY - firstBee.offsetTop, 2)
-  );
+// window.addEventListener('mousemove', (e) => {
+//   const firstBee = bees[0]; // Get the reference to the first bee in the bees array
+//   const mouseDistance = Math.sqrt(
+//     Math.pow(e.pageX - firstBee.offsetLeft, 2) +
+//     Math.pow(e.pageY - firstBee.offsetTop, 2)
+//   );
 
-  if (mouseDistance <= 30 && !isWithinRange) {
-    // Mouse is within the range, and it was not within the range in the previous move
-    isWithinRange = true;
-    bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
-  } else if (mouseDistance > 30 && isWithinRange) {
-    // Mouse is outside the range, and it was within the range in the previous move
-    isWithinRange = false;
-    bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
-  }
+//   if (mouseDistance <= 30 && !isWithinRange) {
+//     // Mouse is within the range, and it was not within the range in the previous move
+//     isWithinRange = true;
+//     bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
+//   } else if (mouseDistance > 30 && isWithinRange) {
+//     // Mouse is outside the range, and it was within the range in the previous move
+//     isWithinRange = false;
+//     bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
+//   }
 
-  for (let i = 0; i < bees.length; i++) {
-    const xy = [e.pageX, e.pageY];
-    setTimeout(() => {
-      window.requestAnimationFrame(() => {
-        bees[i].style.left = (xy[0] + bees[i].offset[0]) + 'px';
-        bees[i].style.top = (xy[1] + bees[i].offset[1]) + 'px';
-      });
-    }, i * 10);
-  }
-});
-    }
-  });
+//   for (let i = 0; i < bees.length; i++) {
+//     const xy = [e.pageX, e.pageY];
+//     setTimeout(() => {
+//       window.requestAnimationFrame(() => {
+//         bees[i].style.left = (xy[0] + bees[i].offset[0]) + 'px';
+//         bees[i].style.top = (xy[1] + bees[i].offset[1]) + 'px';
+//       });
+//     }, i * 10);
+//   }
+// });
+//     }
+//   });
 </script>
 </body>
 </html>
