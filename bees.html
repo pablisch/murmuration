@@ -159,11 +159,11 @@ window.addEventListener('mousemove', (e) => {
     Math.pow(e.pageY - firstBee.offsetTop, 2)
   );
 
-  if (mouseDistance <= 10 && !isWithinRange) {
+  if (mouseDistance <= 30 && !isWithinRange) {
     // Mouse is within the range, and it was not within the range in the previous move
     isWithinRange = true;
     bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
-  } else if (mouseDistance > 10 && isWithinRange) {
+  } else if (mouseDistance > 30 && isWithinRange) {
     // Mouse is outside the range, and it was within the range in the previous move
     isWithinRange = false;
     bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
@@ -189,11 +189,11 @@ window.addEventListener('mousemove', (e) => {
     Math.pow(e.pageY - firstBee.offsetTop, 2)
   );
 
-  if (mouseDistance <= 10 && !isWithinRange) {
+  if (mouseDistance <= 30 && !isWithinRange) {
     // Mouse is within the range, and it was not within the range in the previous move
     isWithinRange = true;
     bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
-  } else if (mouseDistance > 10 && isWithinRange) {
+  } else if (mouseDistance > 30 && isWithinRange) {
     // Mouse is outside the range, and it was within the range in the previous move
     isWithinRange = false;
     bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
@@ -240,11 +240,11 @@ window.addEventListener('mousemove', (e) => {
     Math.pow(e.pageY - firstBee.offsetTop, 2)
   );
 
-  if (mouseDistance <= 10 && !isWithinRange) {
+  if (mouseDistance <= 30 && !isWithinRange) {
     // Mouse is within the range, and it was not within the range in the previous move
     isWithinRange = true;
     bees.forEach(bee => bee.classList.add('fade-out')); // Add the fade-out class to all bees
-  } else if (mouseDistance > 10 && isWithinRange) {
+  } else if (mouseDistance > 30 && isWithinRange) {
     // Mouse is outside the range, and it was within the range in the previous move
     isWithinRange = false;
     bees.forEach(bee => bee.classList.remove('fade-out')); // Remove the fade-out class from all bees
